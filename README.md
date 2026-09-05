@@ -17,7 +17,7 @@ Wrapper web para `receipt-parser-legacy`. La aplicación ya no requiere usar `cu
 - Respuesta JSON con `success`, código de salida, stdout/stderr y archivos nuevos detectados.
 - Gunicorn con un solo worker porque el parser heredado usa `data/img/` como estado compartido.
 - El build falla si `poetry install` falla; ya no se ignoran errores de instalación.
-- `LEGACY_REPO_REF` permite seleccionar una rama o referencia concreta del parser legado. Para reproducibilidad en producción, usa un commit/tag fijo al desplegar.
+- El build clona la rama predeterminada del repositorio legado, evitando depender de que se llame `main` o `master`. Para reproducibilidad en producción, conviene fijar posteriormente un commit/tag probado.
 
 ## Arquitectura actual
 
@@ -39,8 +39,8 @@ Luego abre `http://localhost:8000`.
 ## Docker
 
 ```bash
-docker build --build-arg LEGACY_REPO_REF=main -t receipt-parser-render .
+docker build -t receipt-parser-render .
 docker run --rm -p 8000:8000 receipt-parser-render
 ```
 
-Para producción, sustituye `main` por un tag o commit conocido y probado.
+Para producción, se recomienda fijar el repositorio legado a un tag o commit conocido y probado.

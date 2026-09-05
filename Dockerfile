@@ -5,8 +5,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
-ARG LEGACY_REPO_REF=main
-RUN git clone --branch "${LEGACY_REPO_REF}" --depth 1 https://github.com/ReceiptManager/receipt-parser-legacy.git repo
+RUN git clone --depth 1 https://github.com/ReceiptManager/receipt-parser-legacy.git repo
 
 WORKDIR /app/repo
 RUN pip install --no-cache-dir poetry \
