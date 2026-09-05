@@ -1,11 +1,11 @@
 FROM python:3.9.13-slim-bullseye
 
-# Redirigir repositorios a archive.debian.org y la seguridad a security.debian.org
+# Redirigir todos los repositorios (main, updates y security) a archive.debian.org
 RUN rm -f /etc/apt/sources.list.d/debian.sources \
     && printf '%s\n' \
        'deb http://archive.debian.org/debian bullseye main' \
        'deb http://archive.debian.org/debian bullseye-updates main' \
-       'deb http://security.debian.org/debian-security bullseye-security main' \
+       'deb http://archive.debian.org/debian-security bullseye-security main' \
        > /etc/apt/sources.list \
     && apt-get -o Acquire::Check-Valid-Until=false update \
     && apt-get install -y --no-install-recommends \
@@ -31,7 +31,7 @@ RUN pip install --no-cache-dir -r /app/wrapper_requirements.txt \
 ENV PYTHONUNBUFFERED=1
 ENV MAX_UPLOAD_MB=12
 
-# Usar la variable de entorno PORT que asigna Render automáticamente (por defecto 10000)
+# Usar el puerto dinámico asignado por Render (por defecto 10000)
 ENV PORT=10000
 EXPOSE ${PORT}
 
