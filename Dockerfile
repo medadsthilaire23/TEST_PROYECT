@@ -1,5 +1,7 @@
 # Imagen base con Python
-FROM python:3.11-slim
+# NOTA: receipt-parser-legacy requiere Python 3.9.x específicamente
+# (Poetry rechaza instalar con versiones más nuevas como 3.11).
+FROM python:3.9-slim
 
 # Dependencias del sistema que necesita receipt-parser-legacy:
 # tesseract-ocr (motor OCR) e imagemagick (preprocesado de imagen), más git y make
