@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: receipt-parser-test
+    env: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    healthCheckPath: /
